@@ -30,6 +30,25 @@
             padding: 20px;
         }
 
+        .boton-mision {
+    display: inline-block;
+    padding: 15px 30px;
+    background-color: transparent;
+    color: #00ffcc;
+    border: 2px solid #00ffcc;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.boton-mision:hover {
+    background-color: #00ffcc;
+    color: #000;
+    box-shadow: 0 0 20px #00ffcc;
+}
+
         .container {
             width: 100%;
             max-width: 650px;
@@ -155,86 +174,132 @@
             grid-template-columns: 1fr 1fr;
             gap: 10px;
         }
+
+        .main-flex {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 32px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.bienvenida-block {
+    background: rgba(10, 11, 16, 0.95);
+    border: 1px solid var(--glow-cyan);
+    border-radius: 5px;
+    box-shadow: 0 0 30px rgba(0, 242, 255, 0.2);
+    padding: 40px 30px;
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 30px;
+}
+@media (max-width: 900px) {
+    .main-flex {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+    .bienvenida-block, .container {
+        max-width: 100%;
+        width: 100%;
+    }
+}
     </style>
+    <!-- Flatpickr CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 </head>
 <body>
     <audio id="bg-music" loop>
     <source src="musica-mision.mp3" type="audio/mpeg">
 </audio>
 
-<div class="container">
-    <h1>INTERSTELLAR</h1>
-    <p class="subtitle">MISIÓN MARTE 2026 - RECLUTAMIENTO OFICIAL</p>
-    
-    <form id="mission-form">
-        <!-- 1. Identidad Terrestre -->
-        <fieldset>
-            <legend>01. Identidad Terrestre</legend>
-            <div class="form-group">
-                <label for="full-name">Nombre Completo</label>
-                <input type="text" id="full-name" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" required>
-            </div>
-            <div class="form-group">
-                <label for="birth-date">Fecha de Nacimiento</label>
-                <input type="date" id="birth-date" required>
-            </div>
-        </fieldset>
+<div class="main-flex">
+    <div id="bienvenida" class="bienvenida-block">
+        <h1 style="color: white;">BIENVENIDO A LA MISIÓN MARTE 2026</h1>
+        <p style="color: #00ffcc;">Prepárate para el reclutamiento interestelar</p>
+        <a href="checklist.html" class="boton-mision">INICIAR REGISTRO DE COLONO</a>
+    </div>
 
-        <!-- 2. Perfil de Vuelo -->
-        <fieldset>
-            <legend>02. Perfil de Vuelo</legend>
-            <div class="form-group">
-                <label for="recruit-id">ID de Recluta (Numérico)</label>
-                <input type="number" id="recruit-id" required>
-            </div>
-            <div class="form-group">
-                <label for="role">Rol en la Misión</label>
-                <select id="role" required>
-                    <option value="" disabled selected>Seleccione...</option>
-                    <option value="ing">Ingeniero de Oxígeno</option>
-                    <option value="bio">Biólogo de Invernadero</option>
-                    <option value="pilot">Piloto de Naves de Carga</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>Habilidades Especiales</label>
-                <div class="checkbox-group">
-                    <div><input type="checkbox" id="h1" value="robots"><label for="h1"> Reparación Robots</label></div>
-                    <div><input type="checkbox" id="h2" value="med"><label for="h2"> Primeros Auxilios</label></div>
-                    <div><input type="checkbox" id="h3" value="hidro"><label for="h3"> Cultivo Hidropónico</label></div>
-                    <div><input type="checkbox" id="h4" value="tele"><label for="h4"> Telecomunicaciones</label></div>
+    <div class="container" id="formulario-container">
+        <h1>INTERSTELLAR</h1>
+        <p class="subtitle">MISIÓN MARTE 2026 - RECLUTAMIENTO OFICIAL</p>
+        
+        <form id="mission-form" action="http://localhost:3000/api/formulario" method="POST">
+            <input type="hidden" name="form-name" value="mission-form">
+            <!-- 1. Identidad Terrestre -->
+            <fieldset>
+                <legend>01. Identidad Terrestre</legend>
+                <div class="form-group">
+                    <label for="full-name">Nombre Completo</label>
+                    <input type="text" id="full-name" name="nombre" required>
                 </div>
-            </div>
-        </fieldset>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="birth-date">Fecha de Nacimiento</label>
+                    <input type="text" id="birth-date" name="nacimiento" required>
+                </div>
+            </fieldset>
 
-        <!-- 3. Motivación y Seguridad -->
-        <fieldset>
-            <legend>03. Motivación y Seguridad</legend>
-            <div class="form-group">
-                <label for="motivation">Carta de Motivos (150 - 350 caracteres)</label>
-                <textarea id="motivation" rows="4" required minlength="150" maxlength="350" placeholder="Explique su razón para dejar la Tierra..."></textarea>
-                <div class="status-container">
-                    <span id="warning-msg">⚠️ Límite de transmisión alcanzado</span>
-                    <span class="char-counter" id="counter">0 / 350</span>
+            <!-- 2. Perfil de Vuelo -->
+            <fieldset>
+                <legend>02. Perfil de Vuelo</legend>
+                <div class="form-group">
+                    <label for="recruit-id">ID de Recluta (Numérico)</label>
+                    <input type="number" id="recruit-id" name="recluta" required>
                 </div>
-            </div>
-            <div class="form-group">
-                <label for="pass">Clave de Acceso (Min. 10 caracteres)</label>
-                <div class="password-wrapper">
-                    <input type="password" id="pass" required minlength="10" maxlength="10">
-                    <span class="toggle-password" id="toggle-btn">👁️</span>
+                <div class="form-group">
+                    <label for="role">Rol en la Misión</label>
+                    <select id="role" name="rol" required>
+                        <option value="" disabled selected>Seleccione...</option>
+                        <option value="ing">Ingeniero de Oxígeno</option>
+                        <option value="bio">Biólogo de Invernadero</option>
+                        <option value="pilot">Piloto de Naves de Carga</option>
+                    </select>
                 </div>
-            </div>
-        </fieldset>
+                <div class="form-group">
+                    <label>Habilidades Especiales</label>
+                    <div class="checkbox-group">
+                        <div><input type="checkbox" id="h1" name="habilidades" value="robots"><label for="h1"> Reparación Robots</label></div>
+                        <div><input type="checkbox" id="h2" name="habilidades" value="med"><label for="h2"> Primeros Auxilios</label></div>
+                        <div><input type="checkbox" id="h3" name="habilidades" value="hidro"><label for="h3"> Cultivo Hidropónico</label></div>
+                        <div><input type="checkbox" id="h4" name="habilidades" value="tele"><label for="h4"> Telecomunicaciones</label></div>
+                    </div>
+                </div>
+            </fieldset>
 
-        <button type="submit">Iniciar Lanzamiento</button>
-    </form>
+            <!-- 3. Motivación y Seguridad -->
+            <fieldset>
+                <legend>03. Motivación y Seguridad</legend>
+                <div class="form-group">
+                    <label for="motivation">Carta de Motivos (150 - 350 caracteres)</label>
+                    <textarea id="motivation" name="motivos" rows="4" required minlength="150" maxlength="350" placeholder="Explique su razón para dejar la Tierra..."></textarea>
+                    <div class="status-container">
+                        <span id="warning-msg">⚠️ Límite de transmisión alcanzado</span>
+                        <span class="char-counter" id="counter">0 / 350</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="pass">Clave de Acceso (Min. 10 caracteres)</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="pass" name="clave" required minlength="10" maxlength="10">
+                        <span class="toggle-password" id="toggle-btn">👁️</span>
+                    </div>
+                </div>
+            </fieldset>
+
+            <button type="submit">Iniciar Lanzamiento</button>
+        </form>
+    </div>
 </div>
 
+<!-- Flatpickr JS -->
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script>
     // Protocolo de activación sonora de la misión
 const audio = document.getElementById('bg-music');
@@ -310,6 +375,27 @@ document.addEventListener('click', iniciarMusica);
             alert("LANZAMIENTO INICIADO. Buen viaje, colono.");
         }
     });
+
+    // Flatpickr para fecha de nacimiento
+flatpickr("#birth-date", {
+    dateFormat: "Y-m-d",
+    maxDate: "today",
+    minDate: "1950-01-01",
+    altInput: true,
+    altFormat: "d-m-Y",
+    yearRange: [1950, new Date().getFullYear()],
+    locale: {
+        firstDayOfWeek: 1,
+        weekdays: {
+            shorthand: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"],
+            longhand: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"]
+        },
+        months: {
+            shorthand: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
+            longhand: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"]
+        }
+    }
+});
 </script>
 </body>
 </html>
