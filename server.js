@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -7,8 +8,8 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// Conexión a MongoDB local (puedes usar MongoDB Atlas si prefieres)
-mongoose.connect('mongodb://localhost:27017/marte', { useNewUrlParser: true, useUnifiedTopology: true });
+// Conexión a MongoDB Atlas usando variable de entorno
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const FormSchema = new mongoose.Schema({
   nombre: String,
