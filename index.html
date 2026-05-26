@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Misión Marte 2026 - Registro Oficial</title>     
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <style>
+        :root {
+            --glow-cyan: #00f2ff;
+            --dark-space: #0a0b10;
+            --text-silver: #d1d1d1;
+            --alert-orange: #ff9100;
+            --error-red: #ff4444;
+        }
+
+        body {
+            background-color: var(--dark-space);
+            background-image: 
+                radial-gradient(circle at 50% 50%, rgba(11, 61, 145, 0.15) 0%, transparent 80%),
+                url('https://images.unsplash.com/photo-1517976487492-5750f3195933?q=80&w=2070&auto=format&fit=crop');
+            background-attachment: fixed;
+            background-size: cover;
+            color: var(--text-silver);
+            font-family: 'Segoe UI', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .boton-mision {
+    display: inline-block;
+    padding: 15px 30px;
+    background-color: transparent;
+    color: #00ffcc;
+    border: 2px solid #00ffcc;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.boton-mision:hover {
+    background-color: #00ffcc;
+    color: #000;
+    box-shadow: 0 0 20px #00ffcc;
+}
+
+        .container {
+            width: 100%;
+            max-width: 650px;
+            background: rgba(10, 11, 16, 0.95);
+            border: 1px solid var(--glow-cyan);
+            padding: 40px;
+            border-radius: 5px;
+            box-shadow: 0 0 30px rgba(0, 242, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            color: var(--glow-cyan);
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 0.8em;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+            color: #888;
+        }
+
+        fieldset {
+            border: 1px solid rgba(0, 242, 255, 0.3);
+            margin-bottom: 25px;
+            padding: 20px;
+        }
+
+        legend {
+            color: var(--glow-cyan);
+            padding: 0 10px;
+            font-size: 0.85em;
+            text-transform: uppercase;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        label {
+            margin-bottom: 8px;
+            font-size: 0.8em;
+            color: var(--glow-cyan);
+            text-transform: uppercase;
+        }
+
+        input, select, textarea {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #333;
+            padding: 12px;
+            color: white;
+            font-size: 1em;
+            transition: 0.3s;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--glow-cyan);
+        }
+
+       
+        .status-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5px;
+            font-size: 0.75em;
+        }
+
+        #warning-msg {
+            color: var(--alert-orange);
+            visibility: hidden;
+            font-weight: bold;
+        }
+
+        .char-counter {
+            color: #888;
+        }
+
+        .password-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .password-wrapper input { width: 100%; padding-right: 45px; }
+
+        .toggle-password {
+            position: absolute;
+            right: 15px;
+            cursor: pointer;
+            color: var(--glow-cyan);
+            font-size: 1.2em;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background: transparent;
+            border: 1px solid var(--glow-cyan);
+            color: var(--glow-cyan);
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: 0.4s;
+        }
+
+        button:hover {
+            background: var(--glow-cyan);
+            color: black;
+            box-shadow: 0 0 20px var(--glow-cyan);
+        }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .main-flex {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 32px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.bienvenida-block {
+    background: rgba(10, 11, 16, 0.95);
+    border: 1px solid var(--glow-cyan);
+    border-radius: 5px;
+    box-shadow: 0 0 30px rgba(0, 242, 255, 0.2);
+    padding: 40px 30px;
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 30px;
+}
+@media (max-width: 900px) {
+    .main-flex {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+    .bienvenida-block, .container {
+        max-width: 100%;
+        width: 100%;
+    }
+}
+    </style>
+    
+
+</head>
+<body>
+    <audio id="bg-music" loop>
+    <source src="musica-mision.mp3" type="audio/mpeg">
+</audio>
+
+<div class="main-flex">
+    <div id="bienvenida" class="bienvenida-block">
+        <h1 style="color: white;">BIENVENIDO A LA MISIÓN MARTE 2026</h1>
+        <p style="color: #00ffcc;">Prepárate para el reclutamiento interestelar</p>
+        <a href="checklist.html" class="boton-mision">INICIAR REGISTRO DE COLONO</a>
+    </div>
+
+    <div class="container" id="formulario-container">
+        <h1>INTERSTELLAR</h1>
+        <p class="subtitle">MISIÓN MARTE 2026 - RECLUTAMIENTO OFICIAL</p>
+        
+        <form id="mission-form" action="http://localhost:3000/api/formulario" method="POST">
+            <input type="hidden" name="form-name" value="mission-form">
+            <!-- 1. Identidad Terrestre -->
+            <fieldset>
+                <legend>01. Identidad Terrestre</legend>
+                <div class="form-group">
+                    <label for="full-name">Nombre Completo</label>
+                    <input type="text" id="full-name" name="nombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="birth-date">Fecha de Nacimiento</label>
+                    <input type="text" id="birth-date" name="nacimiento" required>
+                </div>
+            </fieldset>
+
+            <!-- 2. Perfil de Vuelo -->
+            <fieldset>
+                <legend>02. Perfil de Vuelo</legend>
+                <div class="form-group">
+                    <label for="recruit-id">ID de Recluta (Numérico)</label>
+                    <input type="number" id="recruit-id" name="recluta" required>
+                </div>
+                <div class="form-group">
+                    <label for="role">Rol en la Misión</label>
+                    <select id="role" name="rol" required>
+                        <option value="" disabled selected>Seleccione...</option>
+                        <option value="ing">Ingeniero de Oxígeno</option>
+                        <option value="bio">Biólogo de Invernadero</option>
+                        <option value="pilot">Piloto de Naves de Carga</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Habilidades Especiales</label>
+                    <div class="checkbox-group">
+                        <div><input type="checkbox" id="h1" name="habilidades" value="robots"><label for="h1"> Reparación Robots</label></div>
+                        <div><input type="checkbox" id="h2" name="habilidades" value="med"><label for="h2"> Primeros Auxilios</label></div>
+                        <div><input type="checkbox" id="h3" name="habilidades" value="hidro"><label for="h3"> Cultivo Hidropónico</label></div>
+                        <div><input type="checkbox" id="h4" name="habilidades" value="tele"><label for="h4"> Telecomunicaciones</label></div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- 3. Motivación y Seguridad -->
+            <fieldset>
+                <legend>03. Motivación y Seguridad</legend>
+                <div class="form-group">
+                    <label for="motivation">Carta de Motivos (150 - 350 caracteres)</label>
+                    <textarea id="motivation" name="motivos" rows="4" required minlength="150" maxlength="350" placeholder="Explique su razón para dejar la Tierra..."></textarea>
+                    <div class="status-container">
+                        <span id="warning-msg">⚠️ Límite de transmisión alcanzado</span>
+                        <span class="char-counter" id="counter">0 / 350</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="pass">Clave de Acceso (Min. 10 caracteres)</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="pass" name="clave" required minlength="10" maxlength="10">
+                        <span class="toggle-password" id="toggle-btn">👁️</span>
+                    </div>
+                </div>
+            </fieldset>
+
+            <button type="submit">Iniciar Lanzamiento</button>
+        </form>
+    </div>
+</div>
+
+<!-- Flatpickr JS -->
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script>
+    // Protocolo de activación sonora de la misión
+const audio = document.getElementById('bg-music');
+
+function iniciarMusica() {
+    audio.play().then(() => {
+        console.log("Sistemas de audio iniciados...");
+        // Una vez que empieza a sonar, eliminamos el detector para ahorrar recursos
+        document.removeEventListener('click', iniciarMusica);
+    }).catch(error => {
+        console.log("El navegador bloqueó el audio momentáneamente:", error);
+    });
+}
+
+// Escuchar el primer clic en cualquier parte del documento
+document.addEventListener('click', iniciarMusica);
+
+    // 1. Mostrar/Ocultar contraseña
+    const toggleBtn = document.querySelector('#toggle-btn');
+    const passInput = document.querySelector('#pass');
+    toggleBtn.addEventListener('click', () => {
+        const type = passInput.type === 'password' ? 'text' : 'password';
+        passInput.type = type;
+        toggleBtn.textContent = type === 'password' ? '👁️' : '🙈';
+    });
+
+    // 2. Contador Estricto y Mensaje de Advertencia
+    const motivation = document.querySelector('#motivation');
+    const counter = document.querySelector('#counter');
+    const warning = document.querySelector('#warning-msg');
+
+    motivation.addEventListener('input', () => {
+        const currentLength = motivation.value.length;
+        counter.textContent = `${currentLength} / 350`;
+
+        // Validar color del contador (Azul si está entre 150 y 350)
+        if (currentLength >= 150 && currentLength <= 350) {
+            counter.style.color = "var(--glow-cyan)";
+        } else if (currentLength < 150) {
+            counter.style.color = "#888";
+        }
+
+        // Mostrar advertencia si llega al máximo
+        if (currentLength >= 350) {
+            warning.style.visibility = "visible";
+            motivation.style.borderColor = "var(--alert-orange)";
+        } else {
+            warning.style.visibility = "hidden";
+            motivation.style.borderColor = "#333";
+        }
+    });
+
+    // 3. Validación de mayoría de edad
+    document.querySelector('#birth-date').addEventListener('change', function() {
+        const birth = new Date(this.value);
+        const today = new Date();
+        let age = today.getFullYear() - birth.getFullYear();
+        if (age < 18) {
+            alert("ACCESO DENEGADO: El recluta debe ser mayor de edad.");
+            this.value = '';
+        }
+    });
+
+    // 4. Validación final al enviar
+    document.querySelector('#mission-form').addEventListener('submit', (e) => {
+        if (motivation.value.length < 150) {
+            alert("ERROR: La carta de motivos es demasiado breve para la transmisión (mínimo 150 caracteres).");
+            e.preventDefault();
+        } else if (passInput.value.length !== 10) {
+            alert("ERROR: La clave de acceso debe tener exactamente 10 caracteres.");
+            e.preventDefault();
+        } else {
+            alert("LANZAMIENTO INICIADO. Buen viaje, colono.");
+        }
+    });
+
+    // Flatpickr para fecha de nacimiento
+flatpickr("#birth-date", {
+    dateFormat: "Y-m-d",
+    maxDate: "today",
+    minDate: "1950-01-01",
+    altInput: true,
+    altFormat: "d-m-Y",
+    yearRange: [1950, new Date().getFullYear()],
+    locale: {
+        firstDayOfWeek: 1,
+        weekdays: {
+            shorthand: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"],
+            longhand: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"]
+        },
+        months: {
+            shorthand: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
+            longhand: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"]
+        }
+    }
+});
+</script>
+</body>
+</html>
